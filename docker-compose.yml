@@ -1,0 +1,52 @@
+---
+version: "2"
+services:
+  shard1:
+    image: mysql:8.0
+    container_name: app-shard-1
+    restart: always
+    volumes:
+      - ./database-initialization.sql:/docker-entrypoint-initdb.d/database-initialization.sql
+      - shard-1-data:/var/lib/mysql
+    environment:
+      &mysql-default-environment
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: test
+    ports:
+      - "3308:3306"
+  shard2:
+    image: mysql:8.0
+    container_name: app-shard-2
+    restart: always
+    volumes:
+      - ./database-initialization.sql:/docker-entrypoint-initdb.d/database-initialization.sql
+      - shard-2-data:/var/lib/mysql
+    environment: *mysql-default-environment
+    ports:
+      - "3309:3306"
+  shard3:
+    image: mysql:8.0
+    container_name: app-shard-3
+    restart: always
+    volumes:
+      - ./database-initialization.sql:/docker-entrypoint-initdb.d/database-initialization.sql
+      - shard-3-data:/var/lib/mysql
+    environment: *mysql-default-environment
+    ports:
+      - "3310:3306"
+  shard4:
+    image: mysql:8.0
+    container_name: app-shard-4
+    restart: always
+    volumes:
+      - ./database-initialization.sql:/docker-entrypoint-initdb.d/database-initialization.sql
+      - shard-4-data:/var/lib/mysql
+    environment: *mysql-default-environment
+    ports:
+      - "3311:3306"        
+
+volumes:
+  shard-1-data:
+  shard-2-data:
+  shard-3-data:
+  shard-4-data:

@@ -1,0 +1,25 @@
+shards:
+  - id: 0
+    host: "localhost"
+    port: 3308
+    database: "test"
+    username: "root"
+    password: "toor"
+  - id: 1
+    host: "localhost"
+    port: 3309
+    database: "test"
+    username: "root"
+    password: "toor"
+  - id: 2
+    host: "localhost"
+    port: 3310
+    database: "test"
+    username: "root"
+    password: "toor"
+  - id: 3
+    host: "localhost"
+    port: 3311
+    database: "test"
+    username: "root"
+    password: "toor"

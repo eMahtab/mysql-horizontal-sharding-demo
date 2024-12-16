@@ -396,3 +396,17 @@ app-shard-4 : 251 users, 1249 messages
 ### Records on app-shard-4
 
 !["Records on app-shard-4"](shard-data.png?raw=true)
+
+
+# !!! Shard with caution
+The demo uses a simple sharding mechanism e.g. id % number_of_shards, in real world system it can be anything from a simple md5 hash, to using some advanced hashing mechanism (Murmur hash, consistent hashing and others) or creating a hash on a combination of columns of the table.
+Selection of shard key should be carefully done, so that records are distributed across shards evenly and the data you would need to fulfill most of the needs of your system would be available on a single shard.
+
+Cross shard queries (queries which require accessing/checking records from multiple shards) are expensive and the code to do cross shard queries or asynchronously/parallely checking records on other shards can result in difficult to manage codebase and it also takes more processing and more time.
+
+Companies which are using sharding on a large scale, usually have an additional Sharding layer between application code and database access. It might be building an interface/library as an internal tool or using available options such as ProxySQL, Vitess in case of MySQL.
+
+Applications which uses database sharding also need to handle the scenarios where records might have to be migrated from one shard to a different shard, as the number of shards decreases or increases, resulting in records being assigned a different shard.
+
+Join between two tables residing on two different shards can be very costly. Sharding must be applied only after thinking through all the scenarios.
+Sharding is great but it comes with its own challenges and complexities.
